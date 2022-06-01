@@ -1,7 +1,8 @@
 const printDate = function(){
+    var day =(new Date().getDate())
 
-    const d = "01/06/2022"
-    console.log(d)
+   
+    console.log(day)
 }
 module.exports.printDate=printDate
 
