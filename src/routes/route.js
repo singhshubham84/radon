@@ -74,7 +74,7 @@ router.get('/movies',function(req, res) {
     
     res.send(movies)
 })
-//problem 2 and
+//problem 2 and 3
 router.get('/movies/:indexNumber',function(req, res) {
    
     let movies = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
