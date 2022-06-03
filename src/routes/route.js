@@ -22,8 +22,41 @@ router.get('/test-me3', function (req, res) {
     res.send('My 4th api!')
 });
 
-router.get('/test-me4', function (req, res) {
-    res.send('My last api!')
+
+
+    router.get('/sol1',function(req,res)
+{
+    let arr=[1,2,3,5,6,7]
+    let item=arr[0]
+    let n=0
+    for(let i=0;i<arr.length+1;i++)
+    
+        if(arr[i]==item){
+            item++
+        }else{
+            missingNumber=item
+        }
+    
+    // const sumOfTheArray=(n*(n+1))/2-missingNumber
+    console.log(missingNumber)
+    res.send({missingNumber});
+});
+router.get('/sol2',function(req,res)
+{
+    let arr=[33,34,35,37,38]
+    let item=arr[0]
+    let n=0
+    for(let i=0;i<arr.length+1;i++)
+    
+        if(arr[i]==item){
+            item++
+        }else{
+            missingNumber=item
+        }
+    
+    // const sumOfTheArray=(n*(n+1))/2-missingNumber  
+    console.log(missingNumber)
+    res.send({missingNumber});
 });
 
 module.exports = router;
