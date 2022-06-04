@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema( {
         enum: ["male", "female", "LGBTQ"] //"falana" will give an error
     },
     age: Number,
-    // isIndian: Boolean,
+    // isIndian: Boolean, 
     // parentsInfo: {
     //     motherName: String,
     //     fatherName: String,
@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema( {
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema) //users
+
+
+
 
 
 
