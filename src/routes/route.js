@@ -5,15 +5,14 @@ const UserController= require("../controllers/userController")
 const BookModel = require('../models/bookModel.js')
 const BookController = require('../controllers/bookController')
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
 
+// for create player and call data
 router.post("/createUser", UserController.createUser  )
-
 router.get("/getUsersData", UserController.getUsersData)
 
+// assignment book
 router.post("/createBook", BookController.createBook)
 router.get("/getBooksData", BookController.getBooksData)
 
 module.exports = router;
+ 

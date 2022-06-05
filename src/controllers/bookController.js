@@ -1,5 +1,4 @@
 const BookModel = require('../models/bookModel')
-// const BookModel = require('../models/bookModel')
 
 const createBook= async function(req,res){
     let data1 = req.body
