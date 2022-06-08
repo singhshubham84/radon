@@ -19,6 +19,7 @@ router.get("/getBooksData", BookController.getBooksData)
 router.get("/getId",AuthorController.getId)
 
 router.get("/authorOfBook",AuthorController.authorOfBook)
+router.get("/getAllData",AuthorController.getAllData)
 
 
 
