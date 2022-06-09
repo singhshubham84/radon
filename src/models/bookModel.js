@@ -18,7 +18,7 @@ module.exports = mongoose.model('Book', bookSchema) //users
 //unique
 // default 
 
-//String
+//String 
 //Number
 //Date
 //Boolean 

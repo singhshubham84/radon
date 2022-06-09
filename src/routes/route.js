@@ -19,9 +19,11 @@ router.get("/getBooksData", BookController.getBooksData)
 router.get("/getId",AuthorController.getId)
 
 router.get("/authorOfBook",AuthorController.authorOfBook)
-router.get("/getAllData",AuthorController.getAllData)
+
+router.get('/bookByAuthor_id',AuthorController.bookByAuthor_id)
+// router.get("/getAllData",AuthorController.getAllData)
 
 
-
+ 
 
 module.exports = router;
