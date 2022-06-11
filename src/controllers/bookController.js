@@ -84,8 +84,8 @@ const getBooksData = async function (req, res) {
 
 //problem 5-B
 const updaterating= async function(req,res){
-        //  let data =   await bookModel.updateMany({rating:{$gt:3.5}},{$inc:{price:10}},{new:true})
-        let data = await bookModel.updateMany({publisher:"HarperCollins",publisher:"Penguin" },{isHardCover:true})
+         let data =   await bookModel.updateMany({rating:{$gt:3.5}},{$inc:{price:10}},{new:true})
+        
     //    console.log(data)
 
        res.send({update:data})
