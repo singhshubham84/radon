@@ -2,30 +2,25 @@ const express = require('express');
 const router = express.Router();
 // const UserModel= require("../models/userModel.js")
 const UserController= require("../controllers/userController")
-const BookController= require("../controllers/bookController")
+const productController= require("../controllers/productController")
 const commonMW = require ("../middlewares/commonMiddlewares")
-
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
+const orderController =require("../controllers/orderController")
 
 
 
 
-router.post("/createBook", BookController.createBook  )
-
-
-
-
-router.post("/createUser", UserController.createUser)
+router.post("/createProduct", productController.createproduct  )
+router.post("/createUser",commonMW.checkIsfreeappuser, UserController.createUser)
+router.post("/createorder",commonMW.validation,orderController.createorder)
+// router.post("/createother",commonMW.checkIsfreeappuser,commonMW.validation, commonMW.paidAppUser, orderController.createorder)
 // router.get("/getUsersData", UserController.getUsersData)
 
 
 // const mid1= function ( req, res, next) {
 //     console.log("Hi I am a middleware named Mid1")
-//     // logic
+//     // logic 
 //     let loggedIn = false
-
+ 
 //     if (loggedIn== true) { 
 //         console.log( "OK LOGGED IS IS TRUE NOW")
 //         next ()
@@ -48,7 +43,7 @@ router.post("/createUser", UserController.createUser)
 
 
 
-router.get("/basicRoute", commonMW.mid1, commonMW.mid2, commonMW.mid3, commonMW.mid4, UserController.basicCode)
+// router.get("/basicRoute", commonMW.mid1, commonMW.mid2, commonMW.mid3, commonMW.mid4, UserController.basicCode)
 
 
 
