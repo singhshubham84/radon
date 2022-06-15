@@ -7,14 +7,14 @@ const createUser = async function (abcd, xyz) {
   //the second parameter is always the response
   let data = abcd.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
+  // console.log(abcd.newAtribute);
   xyz.send({ msg: savedData });
 };
 
 const loginUser = async function (req, res) {
   let userName = req.body.emailId;
   let password = req.body.password;
-
+   console.log(userName)
   let user = await userModel.findOne({ emailId: userName, password: password });
   if (!user)
     return res.send({
@@ -57,6 +57,16 @@ const getUserData = async function (req, res) {
   let decodedToken = jwt.verify(token, "functionup-thorium");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
+     //userId for which the request is made. In this case message to be posted.
+     let userToBeModified = req.params.userId
+     console.log(userToBeModified)
+     //userId for the logged-in user
+ 
+     let userLoggedIn = decodedToken.userId
+     console.log(userLoggedIn)
+ 
+     //userId comparision to check if the logged-in user is requesting for their own data
+     if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
 
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
@@ -85,11 +95,14 @@ const updateUser = async function (req, res) {
 };
 
 const postMessage = async function (req, res) {
+ 
     let message = req.body.message
+    // console.log(message)
     // Check if the token is present
     // Check if the token present is a valid token
     // Return a different error message in both these cases
     let token = req.headers["x-auth-token"]
+    // console.log(token)
     if(!token) return res.send({status: false, msg: "token must be present in the request header"})
     let decodedToken = jwt.verify(token, 'functionup-thorium')
 
@@ -97,13 +110,17 @@ const postMessage = async function (req, res) {
     
     //userId for which the request is made. In this case message to be posted.
     let userToBeModified = req.params.userId
+    // console.log(userToBeModified)
     //userId for the logged-in user
+
     let userLoggedIn = decodedToken.userId
+    // console.log(userLoggedIn)
 
     //userId comparision to check if the logged-in user is requesting for their own data
     if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
 
     let user = await userModel.findById(req.params.userId)
+    // console.log(user)
     if(!user) return res.send({status: false, msg: 'No such user exists'})
     
     let updatedPosts = user.posts
@@ -114,9 +131,35 @@ const postMessage = async function (req, res) {
     //return the updated user document
     return res.send({status: true, data: updatedUser})
 }
+const deleteUser = async function(req, res) {
+  let token = req.headers["x-auth-token"]
+  if(!token) return res.send({status: false, msg: "token must be present in the request header"})
+  let decodedToken = jwt.verify(token, 'functionup-thorium')
+
+  if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
+  
+  //userId for which the request is made. In this case message to be posted.
+  let userToBeModified = req.params.userId
+  console.log(userToBeModified)
+  //userId for the logged-in user
+
+  let userLoggedIn = decodedToken.userId
+  console.log(userLoggedIn)
+
+  //userId comparision to check if the logged-in user is requesting for their own data
+  if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})    
+  let userId = req.params.userId
+  let user = await userModel.findById(userId)
+  // if(!user) {
+  //     return res.send({status: false, message: "no such user exists"})
+  // }
+  let updatedUser = await userModel.findOneAndUpdate({_id: userId}, {isDeleted:true}, {new: true}) //isDeleted:true
+  res.send({status: true, data: updatedUser}) 
+}
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
-module.exports.loginUser = loginUser;
-module.exports.postMessage = postMessage
+module.exports.loginUser=loginUser
+module.exports.postMessage = postMessage;
+module.exports.deleteUser = deleteUser
