@@ -3,6 +3,7 @@ const userModel = require("../models/userModel");
 const authenticate = function(req, res, next) {
     //check the token in request header
     //validate this token
+    try{
     let token = req.headers["x-Auth-token"];
 
     if (!token) token = req.headers["x-auth-token"];
@@ -15,10 +16,14 @@ const authenticate = function(req, res, next) {
     if (!decodedToken) {
       return res.send({ status: false, msg: "token is invalid" });
     }
-    next()
+    next()}
+    catch(err){
+      res.status(500).send({msg:"error",error: err.message})
+    }
 }
 
 const authorise =async function(req, res, next) {
+  try{
     let token = req.headers["x-auth-token"]
    
     let decodedToken = jwt.verify(token, 'functionup-thorium')
@@ -32,7 +37,10 @@ const authorise =async function(req, res, next) {
     let user = await userModel.findById(req.params.userId)
     // console.log(user)
     if(!user) return res.send({status: false, msg: 'No such user exists'})
-    next()
+    next()}
+    catch(err){
+      req.status(500).send({msg:"error",error:err.message})
+    }
 }
 module.exports.authenticate=authenticate
 module.exports.authorise=authorise
