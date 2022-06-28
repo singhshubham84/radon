@@ -6,19 +6,19 @@ const middlewareAuth = require('../middleware/auth')
 const middlewareValidate = require('../middleware/validate')
 
 
-router.post('/authors',middlewareValidate.validatecreate, AuthorController.createAuthor) // create auther
+router.post('/authors', middlewareValidate.validatecreate, AuthorController.createAuthor)
 
-router.post('/blogs', middlewareAuth.authentication,middlewareValidate.validateblog, BlogController.createBlog) //create blog
+router.post('/blogs', middlewareAuth.authentication, middlewareValidate.validateblog, BlogController.createBlog)
 
-router.get('/blogs',middlewareAuth.authentication,middlewareAuth.authorization, middlewareValidate.validateByQuery, BlogController.getblog) //get blog
+router.get('/blogs', middlewareAuth.authentication, middlewareAuth.authorization, middlewareValidate.validateByQuery, BlogController.getblog)
 
-router.put('/blogs/:blogId',middlewareAuth.authentication,middlewareAuth.authorization,  BlogController.updateblog)  // update blog
+router.put('/blogs/:blogId', middlewareAuth.authentication, middlewareAuth.authorization, BlogController.updateblog)
 
-router.delete('/blogs/:blogId', middlewareAuth.authentication, middlewareAuth.authorization, BlogController.deleteById) //delete blog by id
+router.delete('/blogs/:blogId', middlewareAuth.authentication, middlewareAuth.authorization, BlogController.deleteById)
 
-router.delete('/blogs', middlewareAuth.authentication,middlewareValidate.validateByQuery,  BlogController.deleteBlogByquery) //delete by query
+router.delete('/blogs', middlewareAuth.authentication, middlewareValidate.validateByQuery, BlogController.deleteBlogByquery)
 
-router.post('/login',middlewareValidate.validateLogin, AuthorController.loginAuthor) // login 
+router.post('/login', middlewareValidate.validateLogin, AuthorController.loginAuthor)
 
 
 

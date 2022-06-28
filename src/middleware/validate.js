@@ -43,7 +43,7 @@ const validatecreate = async function (req, res, next) {
         // ---------------------------------------------* validations starts *---------------------------------------------//
 
         if (!isValidRequestBody(data)) {
-            return res.status(400).send({ status: false, msg: "Invalid request parameters. Please provide author details" })
+            return res.status(400).send({ status: false, msg: "Invalid request parameters. Please provide  details" })
         }
         //here checking the data come from request body should not be empty
         if (!nameregex.test(fname)) {
@@ -111,8 +111,8 @@ const validateLogin = async function (req, res, next) {
     }
     //validating email with regex
     /*------------------------------------------------------------------------------------------------------*/
-    // if(!isValid(password))
-    // return res.status(400).send({status:false, msg:"password must be present"})
+    if (!isValid(password))
+        return res.status(400).send({ status: false, msg: "password must be present" })
     /* ------------------------------------------------------------------------------------------------------*/
     if (!(passwordregex.test(password))) {
         return res.status(400).send({ status: false, msg: "password is One digit, one upper case , one lower case ,one special character, its b/w 6 to 20" })
@@ -175,11 +175,6 @@ const validateByQuery = async function (req, res, next) {
 
         let filter = { isDeleted: false, isPublished: true }
 
-        // if (!isValidRequestBody(data)) {
-        //     res.status(400).send({ status: false, msg: "please query any one" })          //------its wrong without filter show isdeleted false
-        //     return;
-        // }
-        // validating the body with upper defined function
 
         if (isValid(authorId)) {
             let author = await blogModel.find({ authorId: authorId });

@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const blogModel = require("../model/blogModel");
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 
 const isValidObjectId = function (objectId) {
     return mongoose.Types.ObjectId.isValid(objectId)
@@ -34,8 +34,8 @@ const authorization = async function (req, res, next) {
     try {
 
         let blogId = req.params.blogId
-     
-        
+
+
         let token = (req.headers["x-api-key"])
         let decodedToken = jwt.verify(token, "author-blog")           // verifying the token 
         let tokenauthorId = decodedToken.authorId;
