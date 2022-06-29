@@ -27,7 +27,7 @@ const createIntern = async function (req, res) {
         const internData = req.body
         const { name, email, mobile, collegeName } = internData
 
-        if (!isValidRequestBody(internData)) return res.status(400).send({ status: false, message: "No input by user please provide" })
+        if (!isValidRequestBody(internData)) return res.status(400).send({ status: false, message: "No input by user, please provide" })
 
         if (!isValid(name)) return res.status(400).send({ status: false, message: "Intern's name is required." })
         if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "Not a valid name." })
@@ -42,17 +42,16 @@ const createIntern = async function (req, res) {
         const usedMobile = await internModel.findOne({ mobile })
         if (usedMobile) return res.status(400).send({ status: false, message: "Mobile no already exists. Please provide another mobile number" })
 
+        if (!isValid(name)) return res.status(400).send({ status: false, message: "college name is required" })
+        if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "college name should be in alphabets only" })
+
         const getCollegeDetails = await collegeModel.findOne({name:collegeName , isDeleted: false })
         if (!getCollegeDetails) return res.status(404).send({ status: false, message: "college not found." })
 
-        const collegeIdByCollegeName= getCollegeDetails._id
+        const collegeId= getCollegeDetails._id
 
-        const saveData={
-            name:name,
-            email:email,
-            mobile:mobile,
-            collegeName:collegeIdByCollegeName
-        }
+        const saveData={name,email,mobile,collegeId  }
+        console.log(saveData)
 
         const newInternData = await internModel.create(saveData)
         res.status(201).send({ status: true, message: " your Internship application successfully accepted", data: newInternData })

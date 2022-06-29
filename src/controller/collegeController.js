@@ -52,13 +52,14 @@ const getCollegeDetails = async function (req,res){
     if (!isValidRequestBody(CollegeName)) {
         return res.status(400).send({ status: false, message: "please provide college name" })}
 
-        const getCollegeDetails=await collegeModel({name:CollegeName,isDeleted:false})
+        const getCollegeDetails=await collegeModel.findOne({name:CollegeName,isDeleted:false})
 
-        if(!getCollegeDetails) return res.status(400).send({status:false,message:"no college found with this college name please provide correct college name"} )
+        if(!getCollegeDetails) return res.status(404).send({status:false,message:"no college found with this college name please provide correct college name"} )
 
         const collegeId=getCollegeDetails._id
 
         const findItern= await internModel({collegeId:collegeId,isDeleted:false}).select({name:1,email:1,mobile:1})
+
         
 
 
