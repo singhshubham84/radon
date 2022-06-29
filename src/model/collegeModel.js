@@ -7,7 +7,6 @@ const collegeSchema =mongoose.Schema({
         unique:true,
         trim:true,
         lowercase:true
-
     },
     fullName:{
         type:String,
@@ -23,8 +22,6 @@ const collegeSchema =mongoose.Schema({
         type:Boolean,
         default:false
     }
-
-
 },{timestamps:true})
 
 module.exports=mongoose.model("college",collegeSchema)
