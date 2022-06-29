@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());                             //middleware for parsing json objects into JS-accessible variables
 
 
-mongoose.connect("mongodb+srv://shubhamsingh:ZqIuucMGucAIGAIa@cluster0.3t74x.mongodb.net/project-2")
+mongoose.connect("mongodb+srv://shivanishukla:anupam1985@cluster0.joqko.mongodb.net/group72Database?retryWrites=true&w=majority")
     .then(() => console.log("MongoDb is connected"))
     .catch(err => console.log(err))
 
