@@ -15,33 +15,26 @@ const isValidRequestBody = function (request) {
     return Object.keys(request).length > 0
 }
 const nameRegex = /^([a-zA-Z]+)$/
-const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/ // -------------
+// const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/ // -------------
 
 
 const createCollege = async function (req, res) {
     try {
         const collegeData = req.body
-
-        // ========================> doubt h line 14, 27 & 41 m
-
-        if (isValidRequestBody(collegeData)) {
+        if (!isValidRequestBody(collegeData)) {
             return res.status(400).send({ status: false, message: "No data is provided" })
         }
-
         const { name, fullName, logoLink } = collegeData
-
         if (!isValid(name)) return res.status(400).send({ status: false, message: "college name is required" })
-        if (!nameRegex(name)) return res.status(400).send({ status: false, 
-            message: "college name should be in alphabets only" })
+        if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "college name should be in alphabets only" })
 
         if (!isValid(fullName)) return res.status(400).send({ status: false, message: "college full name is required" })
-        if (!nameRegex(fullName)) return res.status(400).send({ status: false, 
-            message: "college full name should be in alphabets only" })
+        // if (!nameRegex.test(fullName)) return res.status(400).send({ status: false, message: "college full name should be in alphabets only" })
 
         if (!isValid(logoLink)) return res.status(400).send({ status: false, message: "logo link is required" })
-        if (!urlRegex(logoLink)) return res.status(400).send({ status: false, message: "logo link is invalid" })
+        // if (!urlRegex(logoLink)) return res.status(400).send({ status: false, message: "logo link is invalid" })
 
-        const findCollegeName = await collegeModel.findOne(name)
+        const findCollegeName = await collegeModel.findOne({name})
         if (findCollegeName) return res.status(400).send({ status: false, message: `${name} is already registered` })
 
         const newCollege = await collegeModel.create(collegeData)
@@ -54,5 +47,26 @@ const createCollege = async function (req, res) {
     }
 }
 
+const getCollegeDetails = async function (req,res){
+    let CollegeName = req.query
 
+<<<<<<< HEAD
+=======
+    if (!isValidRequestBody(CollegeName)) {
+        return res.status(400).send({ status: false, message: "please provide college name" })}
+
+        const getCollegeDetails=await collegeModel({name:CollegeName,isDeleted:false})
+
+        if(!getCollegeDetails) return res.status(400).send({status:false,message:"no college found with this college name please provide correct college name"} )
+
+        const collegeId=getCollegeDetails._id
+
+        const findItern= await internModel({collegeId:collegeId,isDeleted:false}).select({name:1,email:1,mobile:1})
+        
+
+
+}
+
+
+>>>>>>> 8b20de5fe14f80892ca00da6c319e7959bd8f359
 module.exports.createCollege = createCollege
