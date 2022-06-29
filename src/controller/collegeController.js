@@ -38,7 +38,7 @@ const createCollege = async function (req, res) {
 
         if (!isValid(logoLink)) return res.status(400).send({ status: false, message: "logo link is required" })
         // check logoLinnk provided or not
-        if (!urlRegex(logoLink)) return res.status(400).send({ status: false, message: "logo link is invalid" })
+        if (!urlRegex.test(logoLink)) return res.status(400).send({ status: false, message: "logo link is invalid" })
         // validate logoLink
 
         const findCollegeName = await collegeModel.findOne({ name })
