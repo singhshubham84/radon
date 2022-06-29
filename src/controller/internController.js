@@ -42,13 +42,15 @@ const createIntern = async function (req, res) {
         const usedMobile = await internModel.findOne({ mobile })
         if (usedMobile) return res.status(400).send({ status: false, message: "Mobile no already exists. Please provide another mobile number" })
 
-        if (!isValid(name)) return res.status(400).send({ status: false, message: "college name is required" })
-        if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "college name should be in alphabets only" })
+        if (!isValid(collegeName)) return res.status(400).send({ status: false, message: "college name is required" })
+        if (!nameRegex.test(collegeName)) return res.status(400).send({ status: false, message: "college name should be in alphabets only" })
 
         const getCollegeDetails = await collegeModel.findOne({name:collegeName , isDeleted: false })
+        console.log(getCollegeDetails)
         if (!getCollegeDetails) return res.status(404).send({ status: false, message: "college not found." })
 
         const collegeId= getCollegeDetails._id
+        console.log(collegeId)
 
         const saveData={name,email,mobile,collegeId  }
         console.log(saveData)
