@@ -50,8 +50,6 @@ const createCollege = async function (req, res) {
 const getCollegeDetails = async function (req,res){
     let CollegeName = req.query
 
-<<<<<<< HEAD
-=======
     if (!isValidRequestBody(CollegeName)) {
         return res.status(400).send({ status: false, message: "please provide college name" })}
 
@@ -61,12 +59,11 @@ const getCollegeDetails = async function (req,res){
 
         const collegeId=getCollegeDetails._id
 
-        const findItern= await internModel({collegeId:collegeId,isDeleted:false}).select({name:1,email:1,mobile:1})
+        const findIntern= await internModel({collegeId:collegeId,isDeleted:false}).select({name:1,email:1,mobile:1})
         
 
 
 }
 
 
->>>>>>> 8b20de5fe14f80892ca00da6c319e7959bd8f359
 module.exports.createCollege = createCollege
