@@ -55,7 +55,7 @@ const createIntern = async function (req, res) {
         const saveData={name,email,mobile,collegeId  }
         console.log(saveData)
 
-        const newInternData = await internModel.create(saveData)
+        const newInternData = await (await internModel.create(saveData)).populate('college')
         res.status(201).send({ status: true, message: " your Internship application successfully accepted", data: newInternData })
     }
     catch (err) {
