@@ -1,17 +1,17 @@
 {
-  "name": "project-2",
+  "name": "intern_college",
   "version": "1.0.0",
-  "description": "Intern Project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-   "author": "shraddhanand",
+  "author": "shraddhanand, shubham , shivani , sourav",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
     "mongoose": "^6.4.1",
-    "node": "^18.4.0",
     "nodemon": "^2.0.18"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
