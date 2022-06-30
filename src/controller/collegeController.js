@@ -14,8 +14,8 @@ const isValid = function (value) {
 const isValidRequestBody = function (request) {
     return Object.keys(request).length > 0
 }
-const nameRegex = /^([a-zA-Z]+)$/
-const urlRegex = /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w -_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
+const nameRegex = /^([a-zA-Z]+)$/ 
+const urlRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w -_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
 
 
 
@@ -65,12 +65,15 @@ const getCollegeDetails = async function (req, res) {
         let CollegeName = data.collegeName
 
         const getCollegeDetail = await collegeModel.findOne({ name: CollegeName, isDeleted: false })
-        console.log(getCollegeDetail)
+    
         if (!getCollegeDetail) return res.status(404).send({ status: false, message: "no college found with this college name please provide correct college name" })
 
         const collegeId = getCollegeDetail._id
-        console.log(collegeId)
+
         const findInterns = await internModel.find({ collegeId: collegeId, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
+    
+        if(findInterns.length==0) return res.status(404).send({status:false,message :"No intern enrolled with this college" })
+
 
         let saveData = {
             name: getCollegeDetail.name,

@@ -46,11 +46,11 @@ const createIntern = async function (req, res) {
         if (!nameRegex.test(collegeName)) return res.status(400).send({ status: false, message: "college name should be in alphabets only" })
 
         const getCollegeDetails = await collegeModel.findOne({name:collegeName , isDeleted: false })
-        
+    
         if (!getCollegeDetails) return res.status(404).send({ status: false, message: "college not found." })
 
         const collegeId= getCollegeDetails._id
- 
+        
         const saveData={name,email,mobile,collegeId }
       
         const newInternData =await internModel.create(saveData)
