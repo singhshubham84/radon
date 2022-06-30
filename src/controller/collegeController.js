@@ -20,6 +20,7 @@ const urlRegex =(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%.\+~#=]{2,256}\.[a-z]{2
 
 
 
+
 const createCollege = async function (req, res) {
     try {
         const collegeData = req.body
@@ -63,16 +64,16 @@ const getCollegeDetails = async function (req, res) {
             return res.status(400).send({ status: false, message: "please provide college name" })
         }
 
-        let CollegeName = data.collegeName
+        let CollegeName = req.query.collegeName  // take college name from query 
 
-        const getCollegeDetail = await collegeModel.findOne({ name: CollegeName, isDeleted: false })
+        const getCollegeDetail = await collegeModel.findOne({ name: CollegeName, isDeleted: false }) // find the college details of that perticular name
     
         if (!getCollegeDetail) return res.status(404).send({ status: false, message: "no college found with this college name please provide correct college name" })
 
         const collegeId = getCollegeDetail._id
 
         const findInterns = await internModel.find({ collegeId: collegeId, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
-    
+              // find all the interns whose link with collegeId
         if(findInterns.length==0) return res.status(404).send({status:false,message :"No intern enrolled with this college" })
 
 
