@@ -18,9 +18,6 @@ const nameRegex = /^([a-zA-Z]+)$/
 const urlRegex =(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%.\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%\+.~#?&//=]*)/g)
 
 
-
-
-
 const createCollege = async function (req, res) {
     try {
         const collegeData = req.body

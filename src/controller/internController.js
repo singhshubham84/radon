@@ -55,7 +55,14 @@ const createIntern = async function (req, res) {
         
       
         const newInternData =await internModel.create(saveData)
-        res.status(201).send({ status: true, message: " your Internship application successfully accepted", data: newInternData })
+        const newData  ={
+            isDeleted:false,
+            name:name,
+            email:email,
+            mobile:mobile,
+            collegeId:collegeId
+        }
+        res.status(201).send({ status: true, message: " your Internship application successfully accepted", data: newData })
     }
     catch (err) {
         return res.status(500).send({ status: false, message: err.message })
